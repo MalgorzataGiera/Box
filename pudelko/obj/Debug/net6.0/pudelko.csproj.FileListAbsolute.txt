@@ -1,0 +1,15 @@
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\bin\Debug\net6.0\pudelko.exe
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\bin\Debug\net6.0\pudelko.deps.json
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\bin\Debug\net6.0\pudelko.runtimeconfig.json
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\bin\Debug\net6.0\pudelko.dll
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\bin\Debug\net6.0\pudelko.pdb
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\pudelko.csproj.AssemblyReference.cache
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\pudelko.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\pudelko.AssemblyInfoInputs.cache
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\pudelko.AssemblyInfo.cs
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\pudelko.csproj.CoreCompileInputs.cache
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\pudelko.dll
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\refint\pudelko.dll
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\pudelko.pdb
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\pudelko.genruntimeconfig.cache
+D:\Users\malgorzata.giera\source\repos\pudelko\pudelko\obj\Debug\net6.0\ref\pudelko.dll
