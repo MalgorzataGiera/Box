@@ -32,26 +32,36 @@
             this.c = c;
 
             // zmienia dlugosc na cm
-            if (unit ==  UnitOfMeasure.milimeter)
+            if (unit == UnitOfMeasure.milimeter)
             {
                 this.a *= 10;
                 this.b *= 10;
                 this.c *= 10;
 
             }
-            if(unit == UnitOfMeasure.meter)
+            if (unit == UnitOfMeasure.meter)
             {
                 this.a %= 10;
                 this.b %= 10;
                 this.c %= 10;
             }
 
-            
+
             // sprawdza ograniczenia dot. krawedzi
             if (this.a <= 0 || this.b <= 0 || this.c <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
-            if (this.a > 10 || this.b > 10 || this.c > 10 ) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
-            
-
+            if (this.a > 10 || this.b > 10 || this.c > 10) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
         }
+
+            public override string ToString()
+        {
+            if (unit == UnitOfMeasure.centimeter)
+                return $"{Math.Round(A / 10, 3)} m × {Math.Round(B / 10, 3)} m × {Math.Round(C / 10, 3)} m";
+            if (unit == UnitOfMeasure.milimeter)
+                return $"{Math.Round(A / 100, 3)} m × {Math.Round(B / 100, 3)} m × {Math.Round(C / 100, 3)} m";
+            return $"{Math.Round(A, 3)} m × {Math.Round(B, 3)} m × {Math.Round(C, 3)} m";
+        }
+
+
+    
     }
 }
