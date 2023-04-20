@@ -15,8 +15,24 @@
                 return Math.Round(a, 3);
             }
         }
-        public decimal B { get => b; }
-        public decimal C { get => c; }
+        public decimal B
+        {
+            get
+            {
+                if (unit == UnitOfMeasure.milimeter) return Math.Round(b / 100, 3);
+                if (unit == UnitOfMeasure.centimeter) return Math.Round(b / 10, 3);
+                return Math.Round(a, 3);
+            }
+        }
+        public decimal C
+        {
+            get
+            {
+                if (unit == UnitOfMeasure.milimeter) return Math.Round(c / 100, 3);
+                if (unit == UnitOfMeasure.centimeter) return Math.Round(c / 10, 3);
+                return Math.Round(a, 3);
+            }
+        }
 
         public Pudelko()
         {
@@ -27,28 +43,31 @@
         public Pudelko(decimal a = 0.1m, decimal b = 0.1m, decimal c = 0.1m, UnitOfMeasure unit = UnitOfMeasure.meter)
         {
             this.unit = unit;
-            if (unit == UnitOfMeasure.meter)
-            {
-                this.a = a;
-                this.b = b;
-                this.c = c;
-            }
+            
             if (unit == UnitOfMeasure.centimeter)
             {
-                if (this.a == default) this.a *= 10;
-                if (this.b == default) this.b *= 10;
-                if (this.c == default) this.c *= 10;
+                if (this.a == default) this.a = a * 10;
+                if (this.b == default) this.b = b * 10;
+                if (this.c == default) this.c = c * 10;
+
+                if (a > 1000 || b > 1000 || c > 1000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             }
             if (unit == UnitOfMeasure.milimeter)
             {
-                if (this.a == default) this.a *= 100;
-                if (this.b == default) this.b *= 100;
-                if (this.c == default) this.c *= 100;
+                if (this.a == default) this.a = a * 100;
+                if (this.b == default) this.b = b * 100;
+                if (this.c == default) this.c = c * 100;
+
+                if (a > 10000 || b > 10000 || c > 10000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             }
+
+            this.a = a;
+            this.b = b;
+            this.c = c;
+
+            if (a > 10 || b > 10 || c > 10) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
+            if (a <= 0 || b <= 0 || c <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
             
-            // sprawdza ograniczenia dot. krawedzi
-            if (this.a <= 0 || this.b <= 0 || this.c <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
-            if (this.a > 10 || this.b > 10 || this.c > 10) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
         }
 
         public override string ToString()
