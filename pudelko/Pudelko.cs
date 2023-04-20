@@ -24,29 +24,28 @@
             this.b = 10;
             this.c = 10;
         }
-        public Pudelko(decimal a, decimal b, decimal c, UnitOfMeasure unit = UnitOfMeasure.meter)
+        public Pudelko(decimal a = 0.1m, decimal b = 0.1m, decimal c = 0.1m, UnitOfMeasure unit = UnitOfMeasure.meter)
         {
             this.unit = unit;
-            this.a = a;
-            this.b = b;
-            this.c = c;
-
-            // zmienia dlugosc na cm
-            if (unit == UnitOfMeasure.milimeter)
-            {
-                this.a *= 10;
-                this.b *= 10;
-                this.c *= 10;
-
-            }
             if (unit == UnitOfMeasure.meter)
             {
-                this.a %= 10;
-                this.b %= 10;
-                this.c %= 10;
+                this.a = a;
+                this.b = b;
+                this.c = c;
             }
-
-
+            if (unit == UnitOfMeasure.centimeter)
+            {
+                if (this.a == default) this.a *= 10;
+                if (this.b == default) this.b *= 10;
+                if (this.c == default) this.c *= 10;
+            }
+            if (unit == UnitOfMeasure.milimeter)
+            {
+                if (this.a == default) this.a *= 100;
+                if (this.b == default) this.b *= 100;
+                if (this.c == default) this.c *= 100;
+            }
+            
             // sprawdza ograniczenia dot. krawedzi
             if (this.a <= 0 || this.b <= 0 || this.c <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
             if (this.a > 10 || this.b > 10 || this.c > 10) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
