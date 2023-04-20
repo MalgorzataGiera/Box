@@ -6,6 +6,9 @@
         private readonly decimal b;
         private readonly decimal c;
         private readonly UnitOfMeasure unit;
+        private decimal objetosc;
+        private decimal pole;
+
         public decimal A 
         { 
             get
@@ -33,7 +36,10 @@
                 return Math.Round(a, 3);
             }
         }
-
+        // zwraca objętość pudełka w m^3 w zaokrągleniu do 9 miejsc po przecinku
+        public decimal Objetosc => Math.Round(A * B * C, 9);
+        // zwraca pole powierzchni całkowitej pudełka w m^2 w zaokrągleniu do 6 miejsc po przecinku
+        public decimal Pole => Math.Round(2 * A * B + 2 * A * C + 2 * B * C, 6);
         public Pudelko()
         {
             this.a = 10;
