@@ -2,14 +2,14 @@
 {
     public sealed class Pudelko : IEquatable<Pudelko>
     {
-        private readonly decimal a;
-        private readonly decimal b;
-        private readonly decimal c;
+        private readonly double a;
+        private readonly double b;
+        private readonly double c;
         private readonly UnitOfMeasure unit;
-        private decimal objetosc;
-        private decimal pole;
+        //private double objetosc;
+        //private double pole;
 
-        public decimal A 
+        public double A 
         { 
             get
             {
@@ -18,7 +18,7 @@
                 return Math.Round(a, 3);
             }
         }
-        public decimal B
+        public double B
         {
             get
             {
@@ -27,7 +27,7 @@
                 return Math.Round(a, 3);
             }
         }
-        public decimal C
+        public double C
         {
             get
             {
@@ -37,9 +37,9 @@
             }
         }
         // zwraca objętość pudełka w m^3 w zaokrągleniu do 9 miejsc po przecinku
-        public decimal Objetosc => Math.Round(A * B * C, 9);
+        public double Objetosc => Math.Round(A * B * C, 9);
         // zwraca pole powierzchni całkowitej pudełka w m^2 w zaokrągleniu do 6 miejsc po przecinku
-        public decimal Pole => Math.Round(2 * A * B + 2 * A * C + 2 * B * C, 6);
+        public double Pole => Math.Round(2 * A * B + 2 * A * C + 2 * B * C, 6);
         public Pudelko()
         {
             unit= UnitOfMeasure.centimeter;
@@ -47,7 +47,7 @@
             this.b = 10;
             this.c = 10;
         }
-        public Pudelko(decimal a = 0.1m, decimal b = 0.1m, decimal c = 0.1m, UnitOfMeasure unit = UnitOfMeasure.meter)
+        public Pudelko(double a = 0.1, double b = 0.1, double c = 0.1, UnitOfMeasure unit = UnitOfMeasure.meter)
         {
             this.unit = unit;
             
