@@ -1,6 +1,6 @@
 ﻿namespace pudelko
 {
-    public sealed class Pudelko 
+    public sealed class Pudelko : IEquatable<Pudelko>
     {
         private readonly decimal a;
         private readonly decimal b;
@@ -97,7 +97,27 @@
             throw new FormatException();
         }
 
+        public bool Equals(Pudelko? other)
+        {
+            if (ReferenceEquals(this, other)) return true;
+            if (this.A == this.B && this.A == this.C)
+                if (other.A == other.B && other.A == other.C && other.A == this.A) return true;
+            if (this.A == other.A)
+                if ((this.B == other.B && this.C == other.C) || (this.B == other.C && this.C == other.B)) return true;
+            if (this.A == other.B)
+                if ((this.B == other.C && this.C == other.A) || (this.B == other.A && this.C == other.C)) return true;
+            if (this.A == other.C)
+                if ((this.B == other.B && this.C == other.A) || (this.B == other.A && this.C == other.B)) return true;
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return this.GetHashCode();
+        }
 
-    
+        public static bool operator==(Pudelko p1, Pudelko p2) => p1.Equals(p2);
+
+        public static bool operator !=(Pudelko p1, Pudelko p2) => !(p1.Equals(p2));
+
     }
 }
