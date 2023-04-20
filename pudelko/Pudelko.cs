@@ -42,6 +42,7 @@
         public decimal Pole => Math.Round(2 * A * B + 2 * A * C + 2 * B * C, 6);
         public Pudelko()
         {
+            unit= UnitOfMeasure.centimeter;
             this.a = 10;
             this.b = 10;
             this.c = 10;
@@ -97,9 +98,14 @@
             throw new FormatException();
         }
 
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return false;
+        }
         public bool Equals(Pudelko? other)
         {
-            if (ReferenceEquals(this, other)) return true;
             if (this.A == this.B && this.A == this.C)
                 if (other.A == other.B && other.A == other.C && other.A == this.A) return true;
             if (this.A == other.A)
@@ -119,5 +125,6 @@
 
         public static bool operator !=(Pudelko p1, Pudelko p2) => !(p1.Equals(p2));
 
+        
     }
 }
