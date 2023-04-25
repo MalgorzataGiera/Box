@@ -1,10 +1,16 @@
-﻿using System.Collections;
+﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
+using pudelko;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
+
 
 namespace pudelko
 {
     public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<double>
-    {
+    { 
         private readonly double a;
         private readonly double b;
         private readonly double c;
@@ -36,34 +42,24 @@ namespace pudelko
                 return Math.Round(c, 3);
             }
         }
-        // zwraca objętość pudełka w m^3 w zaokrągleniu do 9 miejsc po przecinku
-        public double Objetosc => Math.Round(A * B * C, 9);
-        // zwraca pole powierzchni całkowitej pudełka w m^2 w zaokrągleniu do 6 miejsc po przecinku
-        public double Pole => Math.Round(2 * A * B + 2 * A * C + 2 * B * C, 6);
-        public Pudelko()
-        {
-            unit= UnitOfMeasure.centimeter;
-            this.a = 10;
-            this.b = 10;
-            this.c = 10;
-        }
+        
         public Pudelko(double a = 0.1, double b = 0.1, double c = 0.1, UnitOfMeasure unit = UnitOfMeasure.meter)
         {
             this.unit = unit;
             
             if (unit == UnitOfMeasure.centimeter)
             {
-                if (this.a == default) this.a = a * 10;
-                if (this.b == default) this.b = b * 10;
-                if (this.c == default) this.c = c * 10;
+                if (this.a == default) this.a = a * 100;
+                if (this.b == default) this.b = b * 100;
+                if (this.c == default) this.c = c * 100;
 
                 if (a > 1000 || b > 1000 || c > 1000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             }
             if (unit == UnitOfMeasure.milimeter)
             {
-                if (this.a == default) this.a = a * 100;
-                if (this.b == default) this.b = b * 100;
-                if (this.c == default) this.c = c * 100;
+                if (this.a == default) this.a = a * 1000;
+                if (this.b == default) this.b = b * 1000;
+                if (this.c == default) this.c = c * 1000;
 
                 if (a > 10000 || b > 10000 || c > 10000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             }
@@ -74,9 +70,18 @@ namespace pudelko
 
             if (a > 10 || b > 10 || c > 10) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             if (a <= 0 || b <= 0 || c <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
-            
         }
-
+        // zwraca objętość pudełka w m^3 w zaokrągleniu do 9 miejsc po przecinku
+        public double Objetosc => Math.Round(A * B * C, 9);
+        // zwraca pole powierzchni całkowitej pudełka w m^2 w zaokrągleniu do 6 miejsc po przecinku
+        public double Pole => Math.Round(2 * A * B + 2 * A * C + 2 * B * C, 6);
+        public Pudelko()
+        {
+            unit = UnitOfMeasure.centimeter;
+            this.a = 10;
+            this.b = 10;
+            this.c = 10;
+        }
         public override string ToString()
         {
             if (unit == UnitOfMeasure.centimeter)
@@ -230,6 +235,7 @@ namespace pudelko
             }
             return new Pudelko(nums[0], nums[1], nums[2], u);
         }
+
         
     }
 }

@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\c#\\#obiektowe\\Pudelko\\pudelko (1)\\pudelko\\pudelko.csproj",
+      "projectUniqueName": "D:\\c#\\#obiektowe\\Pudelko\\Box\\pudelko\\pudelko.csproj",
       "projectName": "pudelko",
-      "projectPath": "D:\\c#\\#obiektowe\\Pudelko\\pudelko (1)\\pudelko\\pudelko.csproj",
+      "projectPath": "D:\\c#\\#obiektowe\\Pudelko\\Box\\pudelko\\pudelko.csproj",
       "packagesPath": "C:\\Users\\gosia\\.nuget\\packages\\",
-      "outputPath": "D:\\c#\\#obiektowe\\Pudelko\\pudelko (1)\\pudelko\\obj\\",
+      "outputPath": "D:\\c#\\#obiektowe\\Pudelko\\Box\\pudelko\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gosia\\AppData\\Roaming\\NuGet\\NuGet.Config",
