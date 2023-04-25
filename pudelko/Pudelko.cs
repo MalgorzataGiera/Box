@@ -6,9 +6,6 @@
         private readonly double b;
         private readonly double c;
         private readonly UnitOfMeasure unit;
-        //private double objetosc;
-        //private double pole;
-
         public double A 
         { 
             get
@@ -179,6 +176,16 @@
                 }
             }
             return new Pudelko(P3A, P3B, P3C);
+        }
+
+        public static explicit operator double[](Pudelko p)
+        {
+            return new double[] { p.A, p.B, p.C };
+        }
+
+        public static implicit operator Pudelko(ValueTuple<int, int, int> tuple)
+        {
+            return new Pudelko(tuple.Item1, tuple.Item2, tuple.Item3);
         }
     }
 }
