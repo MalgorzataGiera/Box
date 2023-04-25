@@ -187,5 +187,16 @@
         {
             return new Pudelko(tuple.Item1, tuple.Item2, tuple.Item3);
         }
+
+        public double this[int index]
+        {
+            get
+            {
+                if (index == 0) return A;
+                if (index == 1) return B;
+                if (index == 2) return C;
+                throw new IndexOutOfRangeException("Index musi być wartością od 0, 1 lub 2");
+            }
+        }
     }
 }
