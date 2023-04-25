@@ -1,6 +1,8 @@
-﻿namespace pudelko
+﻿using System.Collections;
+
+namespace pudelko
 {
-    public sealed class Pudelko : IEquatable<Pudelko>
+    public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<double>
     {
         private readonly double a;
         private readonly double b;
@@ -21,7 +23,7 @@
             {
                 if (unit == UnitOfMeasure.milimeter) return Math.Round(b / 100, 3);
                 if (unit == UnitOfMeasure.centimeter) return Math.Round(b / 10, 3);
-                return Math.Round(a, 3);
+                return Math.Round(b, 3);
             }
         }
         public double C
@@ -30,7 +32,7 @@
             {
                 if (unit == UnitOfMeasure.milimeter) return Math.Round(c / 100, 3);
                 if (unit == UnitOfMeasure.centimeter) return Math.Round(c / 10, 3);
-                return Math.Round(a, 3);
+                return Math.Round(c, 3);
             }
         }
         // zwraca objętość pudełka w m^3 w zaokrągleniu do 9 miejsc po przecinku
@@ -197,6 +199,17 @@
                 if (index == 2) return C;
                 throw new IndexOutOfRangeException("Index musi być wartością od 0, 1 lub 2");
             }
+        }
+
+        public IEnumerator<double> GetEnumerator()
+        {
+            yield return A;
+            yield return B;
+            yield return C;
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
