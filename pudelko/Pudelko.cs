@@ -10,17 +10,17 @@ using System.Threading;
 namespace pudelko
 {
     public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<double>
-    { 
+    {
         private readonly double a;
         private readonly double b;
         private readonly double c;
         private readonly UnitOfMeasure unit;
-        public double A 
-        { 
+        public double A
+        {
             get
             {
-                if (unit == UnitOfMeasure.milimeter) return Math.Round(a/1000, 3);
-                if (unit == UnitOfMeasure.centimeter) return Math.Round(a/100, 3);
+                if (unit == UnitOfMeasure.milimeter) return Math.Round(a / 1000, 3);
+                if (unit == UnitOfMeasure.centimeter) return Math.Round(a / 100, 3);
                 return Math.Round(a, 3);
             }
         }
@@ -42,35 +42,33 @@ namespace pudelko
                 return Math.Round(c, 3);
             }
         }
-        
-        public Pudelko(double a = 10, double b = 10, double c = 10, UnitOfMeasure unit = UnitOfMeasure.meter)// domyslnie 10 cm
+
+        public Pudelko(double? a = null, double? b = null, double? c = null, UnitOfMeasure unit = UnitOfMeasure.meter)// domyslnie 10 cm
         {
             this.unit = unit;
             
             if (unit == UnitOfMeasure.centimeter)
             {
-                this.a = a;
-                this.b = b;
-                this.c = c;
-                //if (a == default) this.a = a*100; else this.a = a;
-                //if (b == default) this.b = b*100; else this.b = b;
-                //if (c == default) this.c = c*100; else this.c = c;
-                //if (a > 1000 || b > 1000 || c > 1000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
+                if (a == null) this.a = 10; else this.a = (double)a;
+                if (b == null) this.b = 10; else this.b = (double)b;
+                if (c == null) this.c = 10; else this.c = (double)c;
+                if (a > 1000 || b > 1000 || c > 1000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             }
             if (unit == UnitOfMeasure.milimeter)
             {
-                if (a == default) this.a = a * 100; else this.a = a;
-                if (b == default) this.b = b * 100; else this.b = b;
-                if (c == default) this.c = c * 100; else this.c = c;
-                //if (a > 10000 || b > 10000 || c > 10000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
+                if (a == null) this.a = 100; else this.a = (double)a;
+                if (b == null) this.b = 100; else this.b = (double)b;
+                if (c == null) this.c = 100; else this.c = (double)c;
+                //Console.WriteLine(b);
+                if (a > 10000 || b > 10000 || c > 10000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             }
-            if(unit == UnitOfMeasure.meter)
+            if (unit == UnitOfMeasure.meter)
             {
-                if (a == default) this.a = a / 100; else this.a = a;
-                if (b == default) this.b = b / 100; else this.b = b;
-                if (c == default) this.c = c / 100; else this.c = c;
+                if (a == null) this.a = 0.1; else this.a = (double)a;
+                if (b == null) this.b = 0.1; else this.b = (double)b;
+                if (c == null) this.c = 0.1; else this.c = (double)c;
             }
-            
+
             if (A > 10 || B > 10 || C > 10) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             if (A <= 0 || B <= 0 || C <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
         }
@@ -87,22 +85,16 @@ namespace pudelko
         }
         public override string ToString()
         {
-            //if (this.unit == UnitOfMeasure.centimeter)
-            //    return $"{Math.Round(A / 100, 3)} m × {Math.Round(B / 100, 3)} m × {Math.Round(C / 100, 3)} m";
-            //if (this.unit == UnitOfMeasure.milimeter)
-            //    return $"{Math.Round(A / 1000, 3)} m × {Math.Round(B / 1000, 3)} m × {Math.Round(C / 1000, 3)} m";
-            return $"{Math.Round(A, 3)} m × {Math.Round(B, 3)} m × {Math.Round(C, 3)} m";
+            return String.Format($"{Math.Round(A, 3):F3} m × {Math.Round(B, 3):F3} m × {Math.Round(C, 3):F3}");
         }
 
         public string ToString(string fmt)
         {
-
-            if (fmt == "m")
-                return $"{Math.Round(A, 3)} m × {Math.Round(B, 3)} m × {Math.Round(C, 3)} m";
+            if (fmt == "m") return ToString();
             if (fmt == "cm")
-                return $"{Math.Round(A * 100, 1)} cm × {Math.Round(B * 100, 1)} cm × {Math.Round(C * 100, 1)} cm";
+                return String.Format($"{Math.Round(A/100, 3):F3} m × {Math.Round(B/100, 3):F3} m × {Math.Round(C/100, 3):F3}");
             if (fmt == "mm")
-                return $"{Math.Round(A * 1000, 0)} mm × {Math.Round(B * 1000, 0)} mm × {Math.Round(C * 1000, 0)} mm";
+                return String.Format($"{Math.Round(A / 1000, 3):F3} m × {Math.Round(B / 1000, 3):F3} m × {Math.Round(C / 1000, 3):F3}");
             throw new FormatException();
         }
 
@@ -129,7 +121,7 @@ namespace pudelko
             return this.GetHashCode();
         }
 
-        public static bool operator==(Pudelko p1, Pudelko p2) => p1.Equals(p2);
+        public static bool operator ==(Pudelko p1, Pudelko p2) => p1.Equals(p2);
 
         public static bool operator !=(Pudelko p1, Pudelko p2) => !(p1.Equals(p2));
 
@@ -176,7 +168,7 @@ namespace pudelko
                     double obj_temp = x * y * z;
                     if (i == 0 && j == 0)
                     {
-                        obj = x * y * z; // po przejciu petli pierwszy raz zapisujemy objetosc pierwszego znalezionego pudelka
+                        obj = x * y * z; // po przejsciu petli pierwszy raz zapisujemy objetosc pierwszego znalezionego pudelka
                         P3A = x; P3B = y; P3C = z; // zapisujemy dlugosci bokow ktore tworza to pudelko
                     }
                     if (obj_temp < obj)
@@ -236,11 +228,11 @@ namespace pudelko
                     else if (a == "mm") u = UnitOfMeasure.milimeter;
                     else if (a == "m") break;
                     else nums[i] = Convert.ToDouble(a);
-                }       
+                }
             }
             return new Pudelko(nums[0], nums[1], nums[2], u);
         }
 
-        
+
     }
 }
