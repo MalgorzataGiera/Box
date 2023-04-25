@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Globalization;
 
 namespace pudelko
 {
@@ -12,8 +13,8 @@ namespace pudelko
         { 
             get
             {
-                if (unit == UnitOfMeasure.milimeter) return Math.Round(a/100, 3);
-                if (unit == UnitOfMeasure.centimeter) return Math.Round(a/10, 3);
+                if (unit == UnitOfMeasure.milimeter) return Math.Round(a/1000, 3);
+                if (unit == UnitOfMeasure.centimeter) return Math.Round(a/100, 3);
                 return Math.Round(a, 3);
             }
         }
@@ -21,8 +22,8 @@ namespace pudelko
         {
             get
             {
-                if (unit == UnitOfMeasure.milimeter) return Math.Round(b / 100, 3);
-                if (unit == UnitOfMeasure.centimeter) return Math.Round(b / 10, 3);
+                if (unit == UnitOfMeasure.milimeter) return Math.Round(b / 1000, 3);
+                if (unit == UnitOfMeasure.centimeter) return Math.Round(b / 100, 3);
                 return Math.Round(b, 3);
             }
         }
@@ -30,8 +31,8 @@ namespace pudelko
         {
             get
             {
-                if (unit == UnitOfMeasure.milimeter) return Math.Round(c / 100, 3);
-                if (unit == UnitOfMeasure.centimeter) return Math.Round(c / 10, 3);
+                if (unit == UnitOfMeasure.milimeter) return Math.Round(c / 1000, 3);
+                if (unit == UnitOfMeasure.centimeter) return Math.Round(c / 100, 3);
                 return Math.Round(c, 3);
             }
         }
@@ -79,9 +80,9 @@ namespace pudelko
         public override string ToString()
         {
             if (unit == UnitOfMeasure.centimeter)
-                return $"{Math.Round(A / 10, 3)} m × {Math.Round(B / 10, 3)} m × {Math.Round(C / 10, 3)} m";
-            if (unit == UnitOfMeasure.milimeter)
                 return $"{Math.Round(A / 100, 3)} m × {Math.Round(B / 100, 3)} m × {Math.Round(C / 100, 3)} m";
+            if (unit == UnitOfMeasure.milimeter)
+                return $"{Math.Round(A / 1000, 3)} m × {Math.Round(B / 1000, 3)} m × {Math.Round(C / 1000, 3)} m";
             return $"{Math.Round(A, 3)} m × {Math.Round(B, 3)} m × {Math.Round(C, 3)} m";
         }
 
@@ -91,9 +92,9 @@ namespace pudelko
             if (fmt == "m")
                 return $"{Math.Round(A, 3)} m × {Math.Round(B, 3)} m × {Math.Round(C, 3)} m";
             if (fmt == "cm")
-                return $"{Math.Round(A, 3)} cm × {Math.Round(B, 3)} cm × {Math.Round(C, 3)} cm";
+                return $"{Math.Round(A * 100, 3)} cm × {Math.Round(B * 100, 3)} cm × {Math.Round(C * 100, 3)} cm";
             if (fmt == "mm")
-                return $"{Math.Round(A, 3)} mm × {Math.Round(B, 3)} mm × {Math.Round(C, 3)} mm";
+                return $"{Math.Round(A * 1000, 3)} mm × {Math.Round(B * 1000, 3)} mm × {Math.Round(C * 1000, 3)} mm";
             throw new FormatException();
         }
 
@@ -211,5 +212,24 @@ namespace pudelko
         {
             return GetEnumerator();
         }
+        public static Pudelko Parse(string s)
+        {
+            string[] temp = s.Split(" × ", StringSplitOptions.RemoveEmptyEntries);
+            double[] nums = new double[3];
+            UnitOfMeasure u = UnitOfMeasure.meter;
+            for (int i = 0; i < temp.Length; i++)
+            {
+                var x = temp[i].Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                foreach (var a in x)
+                {
+                    if (a == "cm") u = UnitOfMeasure.centimeter;
+                    else if (a == "mm") u = UnitOfMeasure.milimeter;
+                    else if (a == "m") break;
+                    else nums[i] = Convert.ToDouble(a);
+                }       
+            }
+            return new Pudelko(nums[0], nums[1], nums[2], u);
+        }
+        
     }
 }
