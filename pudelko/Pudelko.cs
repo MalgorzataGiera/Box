@@ -19,34 +19,37 @@ namespace pudelko
         {
             get
             {
-                if (unit == UnitOfMeasure.milimeter) return Math.Round(a / 1000, 3);
-                if (unit == UnitOfMeasure.centimeter) return Math.Round(a / 100, 3);
-                return Math.Round(a, 3);
+                if (unit == UnitOfMeasure.milimeter) return Math.Floor(a) / 1000;
+                //return Math.Round(a / 1000, 3);
+                if (unit == UnitOfMeasure.centimeter) return Math.Floor(a * 10) / 1000;
+                //Math.Round(a * 100, 3);
+                return Math.Floor(a * 1000) / 1000;
+                //Math.Round(a, 3);
             }
         }
         public double B
         {
             get
             {
-                if (unit == UnitOfMeasure.milimeter) return Math.Round(b / 1000, 3);
-                if (unit == UnitOfMeasure.centimeter) return Math.Round(b / 100, 3);
-                return Math.Round(b, 3);
+                if (unit == UnitOfMeasure.milimeter) return Math.Floor(b) / 1000;
+                if (unit == UnitOfMeasure.centimeter) return Math.Floor(b * 10) / 1000;
+                return Math.Floor(b * 1000) / 1000;
             }
         }
         public double C
         {
             get
             {
-                if (unit == UnitOfMeasure.milimeter) return Math.Round(c / 1000, 3);
-                if (unit == UnitOfMeasure.centimeter) return Math.Round(c / 100, 3);
-                return Math.Round(c, 3);
+                if (unit == UnitOfMeasure.milimeter) return Math.Floor(c) / 1000;
+                if (unit == UnitOfMeasure.centimeter) return Math.Floor(c * 10) / 1000;
+                return Math.Floor(c * 1000) / 1000;
             }
         }
 
         public Pudelko(double? a = null, double? b = null, double? c = null, UnitOfMeasure unit = UnitOfMeasure.meter)// domyslnie 10 cm
         {
             this.unit = unit;
-            
+
             if (unit == UnitOfMeasure.centimeter)
             {
                 if (a == null) this.a = 10; else this.a = (double)a;
@@ -85,16 +88,16 @@ namespace pudelko
         }
         public override string ToString()
         {
-            return String.Format($"{Math.Round(A, 3):F3} m × {Math.Round(B, 3):F3} m × {Math.Round(C, 3):F3}");
+            return String.Format($"{Math.Round(A, 3):F3} m × {Math.Round(B, 3):F3} m × {Math.Round(C, 3):F3} m");
         }
 
-        public string ToString(string fmt)
+        public string ToString(string? fmt)
         {
-            if (fmt == "m") return ToString();
+            if (fmt == "m" || fmt == null) return ToString();
             if (fmt == "cm")
-                return String.Format($"{Math.Round(A/100, 3):F3} m × {Math.Round(B/100, 3):F3} m × {Math.Round(C/100, 3):F3}");
+                return String.Format($"{Math.Round(A * 100, 1):F1} cm × {Math.Round(B * 100, 1):F1} cm × {Math.Round(C * 100, 1):F1} cm");
             if (fmt == "mm")
-                return String.Format($"{Math.Round(A / 1000, 3):F3} m × {Math.Round(B / 1000, 3):F3} m × {Math.Round(C / 1000, 3):F3}");
+                return String.Format($"{Math.Round(A * 1000, 0):F0} mm × {Math.Round(B * 1000, 0):F0} mm × {Math.Round(C * 1000, 0):F0} mm");
             throw new FormatException();
         }
 
@@ -186,11 +189,12 @@ namespace pudelko
             return new double[] { p.A, p.B, p.C };
         }
 
-        public static implicit operator Pudelko(ValueTuple<int, int, int> tuple)
+        public static implicit operator Pudelko(ValueTuple<int, int, int> tuple) // w milimetrach
         {
             if (tuple.Item1 <= 0 || tuple.Item2 <= 0 || tuple.Item3 <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
-            if (tuple.Item1 > 10 || tuple.Item2 > 10 || tuple.Item3 > 10) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
+            if (tuple.Item1 > 10000 || tuple.Item2 > 10000 || tuple.Item3 > 10000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             return new Pudelko(tuple.Item1, tuple.Item2, tuple.Item3, UnitOfMeasure.milimeter);
+            // blad dla sprawdzania <=0
         }
 
         public double this[int index]
