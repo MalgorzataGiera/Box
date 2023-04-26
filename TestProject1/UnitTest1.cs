@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using pudelko;
 using System.Globalization;
 
@@ -466,7 +467,7 @@ namespace TestProject1
             Assert.AreEqual(0.06, p.Pole);
         }
 
-        [DataTestMethod, TestCategory("Volume")]
+        [DataTestMethod, TestCategory("Area")]
         [DataRow(2.5, 9.3, 0.7, UnitOfMeasure.meter, 63.02)]
         [DataRow(4.1, 3, 1.1, UnitOfMeasure.centimeter, 0.004022)]
         [DataRow(3, 1, 2, UnitOfMeasure.milimeter, 0.000022)]
@@ -478,11 +479,58 @@ namespace TestProject1
         #endregion
 
         #region Equals ===========================================
-        // ToDo
+
         #endregion
+        [TestMethod, TestCategory("Equals")]
+        public void Equals_ComparisonToNullObject_RetunsFalse()
+        {
+            var p = new Pudelko();
+            object obj = null;
+            Assert.IsFalse(p.Equals(obj));
+        }
+
+        [TestMethod, TestCategory("Equals")]
+        public void Equals_ComparisonToTheSameObject_RetunsTrue()
+        {
+            var p = new Pudelko();
+            Assert.IsTrue(p.Equals(p));
+        }
+        [DataTestMethod, TestCategory("Equals")]
+        [DataRow(1, 2, 3, 3, 1, 2, UnitOfMeasure.meter)]
+        [DataRow(1, 5.5, 2, 5.5, 1, 2, UnitOfMeasure.centimeter)]
+        [DataRow(9.78, 2.3, 3.1, 3.1, 9.78, 2.3, UnitOfMeasure.milimeter)]
+        public void Equals_SameUnits(double a1, double b1, double c1, double a2, double b2, double c2, UnitOfMeasure unit)
+        {
+            var p1 = new Pudelko(a1, b1, c1, unit);
+            var p2 = new Pudelko(a2, b2, c2, unit);
+            Assert.IsTrue(p1.Equals(p2));
+        }
+
+        [DataTestMethod, TestCategory("Equals")]
+        [DataRow(1, 2, 3, UnitOfMeasure.centimeter, 0.02, 0.01, 0.03, UnitOfMeasure.meter)]
+        [DataRow(10, 55, 2, UnitOfMeasure.milimeter, 5.5, 1, 0.2,  UnitOfMeasure.centimeter)]
+        [DataRow(9.78, 2.3, 3.1, UnitOfMeasure.meter, 3100, 9780, 2300, UnitOfMeasure.milimeter)]
+        public void Equals_DifferentUnits(double a1, double b1, double c1, UnitOfMeasure unit1, double a2, double b2, double c2, UnitOfMeasure unit2)
+        {
+            var p1 = new Pudelko(a1, b1, c1, unit1);
+            var p2 = new Pudelko(a2, b2, c2, unit2);
+            Assert.IsTrue(p1.Equals(p2));
+        }
 
         #region Operators overloading ===========================
-        // ToDo
+        //[DataTestMethod, TestCategory("Overloaded operator +")]
+
+        //[DataTestMethod, TestCategory("Overloaded operator +")]
+        //[DataRow(3, 4, 6, 2, 3, 5, 6, 3, 6)]
+        //public void PlusOperator_BothBoxesInMeter(double a1, double b1, double c1, double a2, double b2, double c2, double expectedA, double expectedB, double expectedC)
+        //{
+        //    var p1 = new Pudelko(a1, b1, c1);
+        //    var p2 = new Pudelko(a2, b2, c2);
+        //    var p3 = p1 + p2;
+        //    Assert.AreEqual(p3.A, expectedA);
+        //    Assert.AreEqual(p3.B, expectedB);
+        //    Assert.AreEqual(p3.C, expectedC);
+        //}
         #endregion
 
         #region Conversions =====================================
