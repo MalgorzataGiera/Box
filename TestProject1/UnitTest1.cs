@@ -442,8 +442,39 @@ namespace TestProject1
 
 
         #region Pole, Objêtoœæ ===================================
-        // ToDo
+        [TestMethod, TestCategory("Volume")]
+        public void Objetosc_GetValue_ForDefaultBox()
+        {
+            var p = new Pudelko();
+            Assert.AreEqual(0.001, p.Objetosc);
+        }
 
+        [DataTestMethod, TestCategory("Volume")]
+        [DataRow(2.5, 9.32, 0.1, UnitOfMeasure.meter, 2.33)]
+        [DataRow(2.3, 8, 0.1, UnitOfMeasure.centimeter, 0.00000184)]
+        [DataRow(3, 5, 2, UnitOfMeasure.milimeter, 0.00000003)]
+        public void Objetosc_GetValue_WhenUsingDifferentUnits(double a, double b, double c, UnitOfMeasure unit, double expectedValue)
+        {
+            var p = new Pudelko(a, b, c, unit);
+            Assert.AreEqual(Math.Round(expectedValue, 9), p.Objetosc);
+        }
+
+        [TestMethod, TestCategory("Area")]
+        public void Pole_GetValue_ForDefaultBox()
+        {
+            var p = new Pudelko();
+            Assert.AreEqual(0.06, p.Pole);
+        }
+
+        [DataTestMethod, TestCategory("Volume")]
+        [DataRow(2.5, 9.3, 0.7, UnitOfMeasure.meter, 63.02)]
+        [DataRow(4.1, 3, 1.1, UnitOfMeasure.centimeter, 0.004022)]
+        [DataRow(3, 1, 2, UnitOfMeasure.milimeter, 0.000022)]
+        public void Pole_GetValue_WhenUsingDifferentUnits(double a, double b, double c, UnitOfMeasure unit, double expectedValue)
+        {
+            var p = new Pudelko(a, b, c, unit);
+            Assert.AreEqual(Math.Round(expectedValue, 6), p.Pole);
+        }
         #endregion
 
         #region Equals ===========================================

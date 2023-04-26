@@ -45,7 +45,11 @@ namespace pudelko
                 return Math.Floor(c * 1000) / 1000;
             }
         }
-
+        public double Objetosc => Math.Round(A* B * C, 9);
+        
+            //Math.Floor((A * B * C) * 1000000000) / 1000000000;
+            //Math.Round(A * B * C, 9);
+        public double Pole => Math.Round(((2 * A * B) + (2 * A * C) + (2 * B * C)), 6);
         public Pudelko(double? a = null, double? b = null, double? c = null, UnitOfMeasure unit = UnitOfMeasure.meter)// domyslnie 10 cm
         {
             this.unit = unit;
@@ -75,10 +79,7 @@ namespace pudelko
             if (A > 10 || B > 10 || C > 10) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             if (A <= 0 || B <= 0 || C <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
         }
-        // zwraca objętość pudełka w m^3 w zaokrągleniu do 9 miejsc po przecinku
-        public double Objetosc => Math.Round(A * B * C, 9);
-        // zwraca pole powierzchni całkowitej pudełka w m^2 w zaokrągleniu do 6 miejsc po przecinku
-        public double Pole => Math.Round(2 * A * B + 2 * A * C + 2 * B * C, 6);
+        
         public Pudelko()
         {
             unit = UnitOfMeasure.centimeter;
@@ -194,7 +195,6 @@ namespace pudelko
             if (tuple.Item1 <= 0 || tuple.Item2 <= 0 || tuple.Item3 <= 0) throw new ArgumentOutOfRangeException("Długość krawędzi musi być dodatnia");
             if (tuple.Item1 > 10000 || tuple.Item2 > 10000 || tuple.Item3 > 10000) throw new ArgumentOutOfRangeException("Długość krawędzi nie może przekrozyć 10m");
             return new Pudelko(tuple.Item1, tuple.Item2, tuple.Item3, UnitOfMeasure.milimeter);
-            // blad dla sprawdzania <=0
         }
 
         public double this[int index]
