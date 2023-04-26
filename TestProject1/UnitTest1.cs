@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using pudelko;
+using System;
 using System.Globalization;
 
 namespace TestProject1
@@ -22,6 +23,7 @@ namespace TestProject1
     {
         private static double defaultSize = 0.1; // w metrach
         private static double accuracy = 0.001; //dok³adnoœæ 3 miejsca po przecinku
+        
 
         private void AssertPudelko(Pudelko p, double expectedA, double expectedB, double expectedC)
         {
@@ -519,7 +521,7 @@ namespace TestProject1
 
         #region Operators overloading ===========================
         [DataTestMethod, TestCategory("Equality Sign")]
-        [DataRow(1, 2, 3, 1, 2, 3)]
+        [DataRow(6,6,3,6,6,3)]
         [DataRow(5, 8, 3, 3, 5, 8)]
         public void EqualSign_SameUnit(double a1, double b1, double c1, double a2, double b2, double c2)
         {
@@ -558,6 +560,27 @@ namespace TestProject1
             var p1 = new Pudelko(a1, b1, c1, unit1);
             var p2 = new Pudelko(a2, b2, c2, unit2);
             Assert.IsFalse(p1 == p2);
+        }
+
+        [TestMethod, TestCategory("Plus Sign")]
+        public void PlusSign_ReturnsObjectOfTypePudelko()
+        {
+            var p1 = new Pudelko(1,1,1, UnitOfMeasure.milimeter);
+            var p2 = new Pudelko(1,1,1, UnitOfMeasure.milimeter);
+            var p3 = p1 + p2;
+            Assert.IsInstanceOfType(p3, typeof(Pudelko));
+        }
+        
+        [DataTestMethod, TestCategory("Plus Sign")]
+        
+        [DataRow(2, 5, 3, 4, 6, 3, "6 m × 6 m × 3 m")]
+        [DataRow(1, 2, 3, 4, 5, 6, "5 m × 4 m × 7 m")]
+        public void PlusSign_SameUnits(double a1, double b1, double c1, double a2, double b2, double c2, string expectedBox)
+        {
+            var p1 = new Pudelko(a1, b1, c1);
+            var p2 = new Pudelko(a2, b2, c2);
+            var p3 = p1 + p2;
+            Assert.IsTrue(Pudelko.Parse(expectedBox)==p3);
         }
 
         #endregion

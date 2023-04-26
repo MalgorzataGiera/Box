@@ -136,14 +136,16 @@ namespace pudelko
             double x = 0, y = 0, z = 0;
             double[] P1 = { p1.A, p1.B, p1.C };
             double[] P2 = { p2.A, p2.B, p2.C };
-            double max1 = P1[1], max2 = P2[1];
-            double min1 = P1[1], min2 = P2[1];
+            //double max1 = P1[1], max2 = P2[1];
+            //double min1 = P1[1], min2 = P2[1];
             double obj = 0;
 
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
+                    double max1 = 0.001, max2 = 0.001;
+                    double min1 = 9.999, min2 = 9.999;
                     x = P1[i] + P2[j];
                     // szuka najdluzszego i najkrotszego boku p1
                     foreach (var bok in P1)
