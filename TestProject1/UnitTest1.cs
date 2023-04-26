@@ -572,7 +572,6 @@ namespace TestProject1
         }
         
         [DataTestMethod, TestCategory("Plus Sign")]
-        
         [DataRow(2, 5, 3, 4, 6, 3, "6 m × 6 m × 3 m")]
         [DataRow(1, 2, 3, 4, 5, 6, "5 m × 4 m × 7 m")]
         public void PlusSign_SameUnits(double a1, double b1, double c1, double a2, double b2, double c2, string expectedBox)
@@ -581,6 +580,16 @@ namespace TestProject1
             var p2 = new Pudelko(a2, b2, c2);
             var p3 = p1 + p2;
             Assert.IsTrue(Pudelko.Parse(expectedBox)==p3);
+        }
+        [DataTestMethod, TestCategory("Plus Sign")]
+        [DataRow(200, 500, 300, UnitOfMeasure.centimeter, 4, 6, 3, UnitOfMeasure.meter, "6 m × 6 m × 3 m")]
+        [DataRow(1000, 2000, 3000, UnitOfMeasure.milimeter, 400, 500, 600, UnitOfMeasure.centimeter, "5 m × 4 m × 7 m")]
+        public void PlusSign_DifferentUnits(double a1, double b1, double c1, UnitOfMeasure unit1, double a2, double b2, double c2, UnitOfMeasure unit2, string expectedBox)
+        {
+            var p1 = new Pudelko(a1, b1, c1, unit1);
+            var p2 = new Pudelko(a2, b2, c2, unit2);
+            var p3 = p1 + p2;
+            Assert.IsTrue(Pudelko.Parse(expectedBox) == p3);
         }
 
         #endregion
