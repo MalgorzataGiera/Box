@@ -518,19 +518,48 @@ namespace TestProject1
         }
 
         #region Operators overloading ===========================
-        //[DataTestMethod, TestCategory("Overloaded operator +")]
+        [DataTestMethod, TestCategory("Equality Sign")]
+        [DataRow(1, 2, 3, 1, 2, 3)]
+        [DataRow(5, 8, 3, 3, 5, 8)]
+        public void EqualSign_SameUnit(double a1, double b1, double c1, double a2, double b2, double c2)
+        {
+            var p1 = new Pudelko(a1, b1, c1);
+            var p2 = new Pudelko(a2, b2, c2);
+            Assert.IsTrue(p1 == p2);
+        }
 
-        //[DataTestMethod, TestCategory("Overloaded operator +")]
-        //[DataRow(3, 4, 6, 2, 3, 5, 6, 3, 6)]
-        //public void PlusOperator_BothBoxesInMeter(double a1, double b1, double c1, double a2, double b2, double c2, double expectedA, double expectedB, double expectedC)
-        //{
-        //    var p1 = new Pudelko(a1, b1, c1);
-        //    var p2 = new Pudelko(a2, b2, c2);
-        //    var p3 = p1 + p2;
-        //    Assert.AreEqual(p3.A, expectedA);
-        //    Assert.AreEqual(p3.B, expectedB);
-        //    Assert.AreEqual(p3.C, expectedC);
-        //}
+        [DataTestMethod, TestCategory("Equality Sign")]
+        [DataRow(1, 2, 3, UnitOfMeasure.meter, 1000, 2000, 3000, UnitOfMeasure.milimeter)]
+        [DataRow(5, 61, 2, UnitOfMeasure.centimeter, 0.05, 0.61, 0.02, UnitOfMeasure.meter)]
+        [DataRow(15, 8.2, 3, UnitOfMeasure.centimeter, 150, 82, 30, UnitOfMeasure.milimeter)]
+        public void EqualSign_DifferentUnits(double a1, double b1, double c1, UnitOfMeasure unit1, double a2, double b2, double c2, UnitOfMeasure unit2)
+        {
+            var p1 = new Pudelko(a1, b1, c1, unit1);
+            var p2 = new Pudelko(a2, b2, c2, unit2);
+            Assert.IsTrue(p1 == p2);
+        }
+
+        [DataTestMethod, TestCategory("Inequality Sign")]
+        [DataRow(1, 2, 3, 1, 4, 3)]
+        [DataRow(5, 5, 2, 3, 5, 8)]
+        public void UnequalSign_SameUnit(double a1, double b1, double c1, double a2, double b2, double c2)
+        {
+            var p1 = new Pudelko(a1, b1, c1);
+            var p2 = new Pudelko(a2, b2, c2);
+            Assert.IsFalse(p1 == p2);
+        }
+
+        [DataTestMethod, TestCategory("Inequality Sign")]
+        [DataRow(1, 2, 3, UnitOfMeasure.meter, 1, 2, 3, UnitOfMeasure.milimeter)]
+        [DataRow(5, 6, 2, UnitOfMeasure.centimeter, 0.5, 6, 2, UnitOfMeasure.meter)]
+        [DataRow(15, 8.2, 3, UnitOfMeasure.centimeter, 15, 8.2, 3, UnitOfMeasure.milimeter)]
+        public void UnequalSign_DifferentUnits(double a1, double b1, double c1, UnitOfMeasure unit1, double a2, double b2, double c2, UnitOfMeasure unit2)
+        {
+            var p1 = new Pudelko(a1, b1, c1, unit1);
+            var p2 = new Pudelko(a2, b2, c2, unit2);
+            Assert.IsFalse(p1 == p2);
+        }
+
         #endregion
 
         #region Conversions =====================================
